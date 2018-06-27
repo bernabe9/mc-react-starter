@@ -36,7 +36,6 @@
   "dependencies": {
     "history": "4.7.2",
     "humps": "2.0.1",
-    "intl": "1.2.5",
     "isomorphic-fetch": "2.2.1",
     "lodash": "4.17.10",
     "mc-components": "0.1.10",
@@ -45,7 +44,6 @@
     "react": "16.4.0",
     "react-dom": "16.4.0",
     "react-helmet": "5.2.0",
-    "react-intl": "2.4.0",
     "react-redux": "5.0.7",
     "react-router-config": "1.0.0-beta.4",
     "react-router-dom": "4.2.2",

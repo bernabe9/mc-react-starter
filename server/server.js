@@ -6,15 +6,12 @@ import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { matchRoutes } from 'react-router-config'
-import { IntlProvider } from 'react-intl'
 import serialize from 'serialize-javascript'
 
 import App from './_app'
 import routes from '../src/routes'
 import Doc from './_document'
 import configureStore from '../src/redux/store/configureStore.prod'
-import locales from '../src/locales'
-import { getLanguageFromHeader } from './helpers'
 import { applyQueryParams } from '../src/utils/helpers'
 import routesPaths from '../src/constants/routesPaths'
 
@@ -45,24 +42,14 @@ server
           }
         })
 
-      // Set INTL locale and messages
-      const userLocale = getLanguageFromHeader(req.get('Accept-Language'))
-      const messages = locales[userLocale]
-
       Promise.all(promises).then(async () => {
         const renderPage = () => {
           const staticRouter = (
-            <IntlProvider
-              locale={userLocale}
-              messages={messages}
-              defaultLocale='en'
-            >
-              <Provider store={store}>
-                <StaticRouter location={req.url} context={context}>
-                  <App routes={routes} />
-                </StaticRouter>
-              </Provider>
-            </IntlProvider>
+            <Provider store={store}>
+              <StaticRouter location={req.url} context={context}>
+                <App routes={routes} />
+              </StaticRouter>
+            </Provider>
           )
           const html = ReactDOMServer.renderToString(staticRouter)
           const helmet = Helmet.renderStatic()
